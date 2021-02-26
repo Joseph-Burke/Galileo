@@ -1,7 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import fetchData from './helpers/fetchData';
+import { useState } from 'react';
 
 function App() {
+  let [dataSnippet, setDataSnippet] = useState('nothing');
+  
+  const data = fetchData().then(response => response.json() );
+  data.then(fulfilledData => {
+    setDataSnippet(fulfilledData.houses[0].location);
+  });
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +26,9 @@ function App() {
         >
           Learn React
         </a>
+        <p>
+          Data Snippet: {dataSnippet}
+        </p>
       </header>
     </div>
   );
