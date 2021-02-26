@@ -1,6 +1,5 @@
-
 const fetchData = async () => {
-  const response = fetch('https://chez-toi-api.herokuapp.com/');
+  const response = fetch('http://localhost:4000/tasks', { mode: 'cors' });
   return response
 }
 

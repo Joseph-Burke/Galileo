@@ -1,37 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
-import fetchData from './helpers/fetchData';
-import { useState } from 'react';
+import fetchData from "./helpers/fetchData";
+import { useState } from "react";
 
 function App() {
-  let [dataSnippet, setDataSnippet] = useState('nothing');
-  
-  const data = fetchData().then(response => response.json() );
+  let [dataSnippet, setDataSnippet] = useState("nothing");
+
+  const data = fetchData().then(response => response.json());
   data.then(fulfilledData => {
-    setDataSnippet(fulfilledData.houses[0].location);
+    setDataSnippet(fulfilledData);
   });
+
+  // console.log(dataSnippet);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>
-          Data Snippet: {dataSnippet}
-        </p>
-      </header>
+      Here is a list of your current tasks:
+      Data Snippet {dataSnippet[0].title}
+      {/* {
+        dataSnippet.map(
+          task => (
+            <div>
+              <h4>{task.title}</h4>
+              <p>{task.title}</p>
+              <p>{task.completed}</p>
+            </div>
+          ) 
+        )
+      } */}
     </div>
-  );
+  )
 }
 
 export default App;
