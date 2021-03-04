@@ -1,5 +1,7 @@
 const fetchData = async () => {
-  const response = fetch('http://localhost:4000/tasks', { mode: 'cors' });
+  let response = await fetch('http://localhost:4000/tasks', { mode: 'cors' });
+  response = await response.json();
+
   return response
 }
 
