@@ -1,9 +1,12 @@
 import reducer from '../reducers/reducer';
-import fetchData from '../helpers/fetchData';
-import { createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 
-const initialState = fetchData();
-
-const store = createStore(reducer, initialState);
+const initialState = [];
+const store = createStore(
+  reducer,
+  initialState,
+  applyMiddleware(thunkMiddleware)
+);
 
 export default store;
