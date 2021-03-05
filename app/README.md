@@ -9,4 +9,4 @@ I should be able to mark tasks as done.
 I should be able to delete tasks.
 I should be able to add new tasks from within the desktop app.
 
-FIX THE REDUCER SO THAT ACTION TYPES ARE FORMATTED CORRECTLY AND PREFEREABLY STORED SAFELY SOMEWHERE.
+FIX THE REDUCER SO THAT ACTION TYPES ARE FORMATTED CORRECTLY AND PREFERABLY STORED SAFELY SOMEWHERE.

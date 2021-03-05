@@ -82,28 +82,30 @@ const App = () => {
       {tasks.map(task => {
         return (
           <div key={task.id} style={{ border: "1px solid grey" }}>
-            Title: {task.title}
-            Description: {task.description}
+            <h5>{task.title}</h5>
+            <p>{task.description}</p>
             Completed:{" "}
             <input
               type="checkbox"
               checked={task.completed}
               onChange={updateTask.bind(this, task, "completed")}
             />
-            <button type="button" onClick={deleteTask.bind(this, task)}>Delete Task</button>
+            <button type="button" onClick={deleteTask.bind(this, task)}>
+              Delete Task
+            </button>
           </div>
         );
       })}
 
       <form>
-        <label for="title">
+        <label htmlFor="title">
           Title:
           <input name="title" type="text" value={formData.title} onChange={handleFormChange.bind(this)} />
         </label>
         <br />
-        <label for="description">
+        <label htmlFor="description">
           Description:
-          <input name="description" type="text" value={formData.description} onChange={handleFormChange.bind(this)} />
+          <textarea name="description" rows={5} type="textarea" value={formData.description} onChange={handleFormChange.bind(this)} />
         </label>
         <br />
         <button
