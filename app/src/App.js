@@ -93,6 +93,18 @@ const App = () => {
             <button type="button" onClick={deleteTask.bind(this, task)}>
               Delete Task
             </button>
+            <div>
+              <h5>Subtasks:</h5>
+              <ul>
+                {
+                  task.subtasks.map(subtask => {
+                    return(
+                      <li>{subtask.title}</li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
           </div>
         );
       })}
