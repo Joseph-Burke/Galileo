@@ -3,9 +3,8 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all
-
-    render json: @tasks
+    @tasks = Task.all.eager_load(:subtasks)
+    render json: @tasks, include: ['subtasks']
   end
 
   # GET /tasks/1
