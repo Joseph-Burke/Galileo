@@ -5,9 +5,15 @@ const tasksReducer = (state = [], action) => {
   switch (type) {
     case "synchroniseStore":
       return payload;
-    case 'updateTask':
+    case "updateTask":
       const updatedTaskIndex = state.findIndex(task => task.id === payload.id);
       state[updatedTaskIndex] = payload;
+      return [...state];
+    case "createTask":
+      return [...state, payload];
+    case "removeTask":
+      const removedTaskIndex = state.findIndex(task => task.id === payload.id);
+      state.splice(removedTaskIndex);
       return [...state];
     default:
       return state;
