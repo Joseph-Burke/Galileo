@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: %i[show update destroy]
 
   # GET /tasks
   def index
-    @tasks = Task.all.eager_load(:subtasks)
-    render json: @tasks, include: ['subtasks']
+    @tasks = Task.all
+    render json: @tasks.as_json(methods: %i[subtask_ids supertask_ids])
   end
 
   # GET /tasks/1
@@ -46,5 +46,9 @@ class TasksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def task_params
       params.require(:task).permit(:title, :description, :completed)
+    end
+
+    def generate_tree
+      Task.count
     end
 end
