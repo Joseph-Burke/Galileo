@@ -47,8 +47,4 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :description, :completed)
     end
-
-    def generate_tree
-      Task.count
-    end
 end
