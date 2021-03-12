@@ -14,8 +14,17 @@ const TaskCard = ({ task }) => {
     ];
     return tasks.filter(otherTask => !invalidSubtaskIds.includes(otherTask.id));
   })();
-
   const [selectedSubtask, setSelectedSubtask] = useState(potentialSubtasks[0]);
+
+  const potentialSupertasks = (function () {
+    const invalidSupertaskIds = [
+      ...task.supertask_ids,
+      ...task.subtask_ids,
+      task.id
+    ];
+    return tasks.filter(otherTask => !invalidSupertaskIds.includes(otherTask.id));
+  })();
+  const [selectedSupertask, setSelectedSupertask] = useState(potentialSupertasks[0]);
 
   const createSubtasking = (subtaskId, supertaskId) => {
     let subtask = tasks.find(otherTask => otherTask.id === subtaskId);
@@ -96,7 +105,6 @@ const TaskCard = ({ task }) => {
               <option>{otherTask.title}</option>
             ))}
           </select>
-          {console.log({ selectedSubtask, task })}
           <button
             onClick={createSubtasking.bind(this, selectedSubtask.id, task.id)}
           >
@@ -113,9 +121,28 @@ const TaskCard = ({ task }) => {
       <ul>
         {task.supertask_ids.map(id => {
           const supertask = tasks.find(otherTask => otherTask.id === id);
-          return <li>{supertask.title}</li>;
+          return (supertask ? <li value={supertask.id}>{supertask.title}</li> : null)
         })}
       </ul>
+
+      {potentialSupertasks.length && selectedSupertask ? (
+        <>
+          <select
+            onChange={({ target: { selectedIndex } }) => {
+              setSelectedSupertask(potentialSupertasks[selectedIndex]);
+            }}
+          >
+            {potentialSupertasks.map(otherTask => (
+              <option>{otherTask.title}</option>
+            ))}
+          </select>
+          <button
+            onClick={createSubtasking.bind(this, task.id, selectedSupertask.id) }
+          >
+            Add Supertask
+          </button>
+        </>
+      ) : null}
     </>
   );
 
