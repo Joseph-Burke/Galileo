@@ -1,17 +1,49 @@
 import { useSelector, useDispatch } from "react-redux";
 import { synchroniseStore } from "./reducers/reducer";
+import { useState } from "react";
 
 const TaskCard = ({ task }) => {
   const dispatch = useDispatch();
   const tasks = useSelector(state => state);
+
+  const potentialSubtasks = (function() {
+    const invalidSubtaskIds = [
+      ...task.supertask_ids,
+      ...task.subtask_ids,
+      task.id
+    ];
+    return tasks.filter(otherTask => !invalidSubtaskIds.includes(otherTask.id));
+  })();
+
+  const [selectedSubtask, setSelectedSubtask] = useState(potentialSubtasks[0]);
+
+  const createSubtasking = (subtaskId, supertaskId) => {
+    let subtask = tasks.find(otherTask => otherTask.id === subtaskId);
+    let supertask = tasks.find(otherTask => otherTask.id === supertaskId);
+
+    subtask.supertask_ids = [...subtask.supertask_ids, supertask.id];
+    supertask.subtask_ids = [...supertask.subtask_ids, subtask.id];
+
+    const URL = `http://localhost:4000/subtaskings`;
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({ subtask_id: subtask.id, supertask_id: supertask.id })
+    }).then(() => {
+      dispatch(synchroniseStore);
+    });
+  };
 
   const updateTask = (task, dataKey, { target }) => {
     switch (dataKey) {
       case "completed":
         task[dataKey] = target.checked;
         break;
-      case "subtasks":
-        task[dataKey] = [...task[dataKey], 4]
+      case "subtask":
+        task[dataKey] = [...task[dataKey], 4];
         break;
       default:
         return;
@@ -47,23 +79,31 @@ const TaskCard = ({ task }) => {
     <>
       <h5>Subtasks</h5>
       <ul>
-        {console.log(task)}
         {task.subtask_ids.map(id => {
           const subtask = tasks.find(otherTask => otherTask.id === id);
-          return <li>{subtask.title}</li>;
+          return (subtask ? <li value={subtask.id}>{subtask.title}</li> : null)
         })}
-        <select>
-          {tasks
-            .filter(tasklistItem => {
-              return ![...task.subtask_ids, task.id].includes(tasklistItem.id);
-            })
-            .map(task => (
-              <option>{task.title}</option>
-            ))}
-        </select>
-        <button></button>
-        )
       </ul>
+
+      {potentialSubtasks.length && selectedSubtask ? (
+        <>
+          <select
+            onChange={({ target: { selectedIndex } }) => {
+              setSelectedSubtask(potentialSubtasks[selectedIndex]);
+            }}
+          >
+            {potentialSubtasks.map(otherTask => (
+              <option>{otherTask.title}</option>
+            ))}
+          </select>
+          {console.log({ selectedSubtask, task })}
+          <button
+            onClick={createSubtasking.bind(this, selectedSubtask.id, task.id)}
+          >
+            Add Subtask
+          </button>
+        </>
+      ) : null}
     </>
   );
 
