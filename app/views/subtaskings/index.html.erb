@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Subtaskings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subtaskings.each do |subtasking| %>
+      <tr>
+        <td><%= link_to 'Show', subtasking %></td>
+        <td><%= link_to 'Edit', edit_subtasking_path(subtasking) %></td>
+        <td><%= link_to 'Destroy', subtasking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subtasking', new_subtasking_path %>
