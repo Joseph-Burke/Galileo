@@ -1,4 +1,29 @@
 <p id="notice"><%= notice %></p>
 
+<h2><%= @task.title %></h2>
+<h5><%= @task.description %></h5>
+
+<% if @task.subtasks.any? %>
+  <h6>Subtasks</h6>
+
+  <ul>
+    <% @task.subtasks.each do |subtask| %>
+      <li><%= link_to subtask.title, task_path(subtask) %></li>
+    <% end %>
+  </ul>
+
+<% end %>
+
+<% if @task.supertasks.any? %>
+  <h6>Supertasks</h6>
+
+  <ul>
+    <% @task.supertasks.each do |supertask| %>
+      <li><%= link_to supertask.title, task_path(supertask) %></li>
+    <% end %>
+  </ul>
+
+<% end %>
+
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
