@@ -10,6 +10,12 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.label "subtasking", 'Supertask:' %>
+  <%= select("subtasking", "supertask_id", @tasks.collect {|t| [t.title, t.id] } ) %>
+
+  <%= form.label "subtasking", 'Subtask:' %>
+  <%= select("subtasking", "subtask_id", @tasks.collect {|t| [t.title, t.id] } ) %>
 
   <div class="actions">
     <%= form.submit %>

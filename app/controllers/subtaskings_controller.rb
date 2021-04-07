@@ -13,6 +13,7 @@ class SubtaskingsController < ApplicationController
   # GET /subtaskings/new
   def new
     @subtasking = Subtasking.new
+    @tasks = Task.all
   end
 
   # GET /subtaskings/1/edit
@@ -64,6 +65,6 @@ class SubtaskingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def subtasking_params
-      params.fetch(:subtasking, {})
+      params.require(:subtasking).permit(:supertask_id, :subtask_id)
     end
 end
