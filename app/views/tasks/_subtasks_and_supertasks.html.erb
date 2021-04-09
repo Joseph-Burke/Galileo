@@ -1,0 +1,32 @@
+<% if @task.subtasks.any? %>
+  <h5>Subtasks</h5>
+  <ul>
+    <% @task.subtasks.each do |subtask| %>
+      <li><%= link_to subtask.title, task_path(subtask) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h5>Add a new Subtask!</h5>
+<%= form_with model: Subtasking.new do |form| %>
+  <%= hidden_field_tag 'subtasking[supertask_id]', @task.id %>
+  <%= form.label 'subtasking', 'Subtask:' %>
+  <%= select("subtasking", "subtask_id", @tasks.collect {|t| [t.title, t.id] } ) %>
+  <%= form.submit %>
+<% end %>
+
+<% if @task.supertasks.any? %>
+  <h5>Supertasks</h5>
+  <ul>
+    <% @task.supertasks.each do |supertask| %>
+      <li><%= link_to supertask.title, task_path(supertask) %></li>
+    <% end %>
+  </ul>
+<% end %>
+<h5>Add a new Supertask</h5>
+<%= form_with model: Subtasking.new do |form| %>
+  <%= hidden_field_tag 'subtasking[subtask_id]', @task.id %>
+  <%= form.label 'subtasking', 'Supertask:' %>
+  <%= select("subtasking", "supertask_id", @tasks.collect {|t| [t.title, t.id] } ) %>
+  <%= form.submit %>
+<% end %>
