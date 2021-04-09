@@ -26,7 +26,7 @@ class SubtaskingsController < ApplicationController
 
     respond_to do |format|
       if @subtasking.save
-        format.html { redirect_to @subtasking, notice: "Subtasking was successfully created." }
+        format.html { redirect_back(fallback_location: root_path, notice: "Subtasking was successfully created") }
         format.json { render :show, status: :created, location: @subtasking }
       else
         format.html { render :new, status: :unprocessable_entity }
