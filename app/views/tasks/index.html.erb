@@ -1,14 +1,28 @@
-<p id="notice"><%= notice %></p>
-<h1>Tasks</h1>
-<% @tasks.each do |task| %>
-  <div>
-    <a href=<%= task_path(task) %>>
-      <span><%= task.title %></span>
-      <span><%= task.description %></span>
-    </a>
-    <%= link_to 'Edit', edit_task_path(task) %>
-    <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
-  </div>
-<% end %>
-<br>
-<%= link_to 'New Task', new_task_path %>
+<div class="tasks-index">
+  <h1>All tasks</h1>
+
+
+  <section class="task-list">
+    <% @tasks.each do |task| %>
+    <div class='task'>
+      <h5 class="task-title">
+        <%= task.title %>
+      </h5>
+      <p class="task-description">
+        <%= task.description.gsub(' ', '') == '' ? 'No description' : task.description %>
+      </p>
+      <div class="links">
+        <%= link_to "View Task", task %>
+        <%= link_to 'Edit', edit_task_path(task) %>
+        <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+    <% end %>
+
+  </section>
+
+
+  <br>
+  <%= link_to 'New Task', new_task_path %>
+
+</div>

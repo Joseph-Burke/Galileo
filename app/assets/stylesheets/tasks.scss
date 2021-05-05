@@ -1,3 +1,45 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.tasks-index {
+  padding: 20px;
+
+  section.task-list {
+    display: flex;
+    justify-content: space-between;
+
+    div.task {
+      flex: 20% 1 0;
+      max-width: 500px;
+      border: 1px solid black;
+      padding: 10px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+
+        .task-title {
+          font-size: 20px;
+          margin: 10px 0;
+        }          
+        .task-description {
+                    
+        }
+        .links {
+          display: flex;
+          justify-content: space-around;
+
+          * {
+            flex-grow: 1;
+            text-align: center;
+            border: 1px solid black;
+            color: black;
+            padding: 10px 0;
+          }
+          *:hover {
+            background: rgba(100, 100, 100, 0.3);
+          }
+        }  
+    }
+  }
+}
