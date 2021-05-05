@@ -2,8 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+@import 'font-sizes';
+
 .tasks-index {
   padding: 20px;
+
+  h1.title {
+    @include font-size("xxl");
+  }
 
   section.task-list {
     display: flex;
@@ -18,28 +24,31 @@
       flex-direction: column;
       justify-content: start;
 
-        .task-title {
-          font-size: 20px;
-          margin: 10px 0;
-        }          
-        .task-description {
-                    
-        }
-        .links {
-          display: flex;
-          justify-content: space-around;
+      .task-title {
+        @include font-size("xl");
+        margin: 10px 0;
+      }
+      
+      .task-description {
+        @include font-size("lg");
+      }
 
-          * {
-            flex-grow: 1;
-            text-align: center;
-            border: 1px solid black;
-            color: black;
-            padding: 10px 0;
-          }
-          *:hover {
-            background: rgba(100, 100, 100, 0.3);
-          }
-        }  
+      .links {
+        display: flex;
+        justify-content: space-around;
+
+        & > * {
+          @include font-size("md");
+          flex-grow: 1;
+          text-align: center;
+          border: 1px solid black;
+          color: black;
+          padding: 10px 0;
+        }
+        *:hover {
+          background: rgba(100, 100, 100, 0.3);
+        }
+      }
     }
   }
 }

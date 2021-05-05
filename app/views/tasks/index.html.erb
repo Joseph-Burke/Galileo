@@ -1,6 +1,5 @@
 <div class="tasks-index">
-  <h1>All tasks</h1>
-
+  <h1 class="title">All tasks</h1>
 
   <section class="task-list">
     <% @tasks.each do |task| %>
@@ -18,10 +17,7 @@
       </div>
     </div>
     <% end %>
-
   </section>
-
-
   <br>
   <%= link_to 'New Task', new_task_path %>
 
