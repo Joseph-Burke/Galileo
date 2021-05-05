@@ -13,12 +13,12 @@
       <div class="links">
         <%= link_to "View Task", task %>
         <%= link_to 'Edit', edit_task_path(task) %>
-        <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Destroy', task, method: :delete %>
       </div>
     </div>
     <% end %>
   </section>
   <br>
-  <%= link_to 'New Task', new_task_path %>
+  <%= render "form", task: Task.new %>
 
 </div>
