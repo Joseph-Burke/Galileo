@@ -1,0 +1,46 @@
+@use "sass:map";
+
+$spacing-base: 18px;
+
+$spacing-ratios: (
+  "xxs": 0.3,
+  "xs": 0.5,
+  "sm": 0.7,
+  "md": 1,
+  "lg": 1.25,
+  "xl": 2,
+  "xxl": 3,
+);
+
+@mixin space($layer, $size, $sides) {
+  @if $sides == y or $sides == top {
+    #{$layer}-top: $spacing-base * map-get($spacing-ratios, $size);
+  }
+  @if $sides == y or $sides == bottom {
+    #{$layer}-bottom: $spacing-base * map-get($spacing-ratios, $size);
+  } 
+  @if $sides == x or $sides == left {
+    #{$layer}-left: $spacing-base * map-get($spacing-ratios, $size);
+  }
+  @if $sides == x or $sides == right {
+    #{$layer}-right: $spacing-base * map-get($spacing-ratios, $size);
+  }
+  @if $sides == null {
+    #{$layer}: $spacing-base * map-get($spacing-ratios, $size);
+  };
+};
+
+@mixin pad($size, $sides: null) {
+  $layer: 'padding';
+  @include space($layer, $size, $sides);
+};
+
+@mixin marg($size, $sides: null) {
+  $layer: 'margin';
+  @include space($layer, $size, $sides);
+};
+
+@mixin bord($size, $sides: null) {
+  $layer: 'border';
+  @include space($layer, $size, $sides);
+};
