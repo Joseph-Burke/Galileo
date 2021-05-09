@@ -1,13 +1,13 @@
 <div class="tasks-index">
   <h1 class="title">All tasks</h1>
 
-  <section class="task-list">
+  <section class="list">
     <% @tasks.each do |task| %>
-    <div class='task'>
-      <h5 class="task-title">
+    <div class='list__card'>
+      <h5 class="title">
         <%= task.title %>
       </h5>
-      <p class="task-description">
+      <p class="description">
         <%= task.description.gsub(' ', '') == '' ? 'No description' : task.description %>
       </p>
       <div class="links">

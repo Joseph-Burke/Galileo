@@ -2,64 +2,67 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-@import '../utilities/font-sizes';
-@import '../utilities/spacing';
+@import "../utilities/font-sizes";
+@import "../utilities/spacing";
 
-.tasks-index {
-  @include pad('md');
-
-  h1.title {
-    @include font-size("xxl");
+@mixin task-card {
+  @include pad("xl", "x");
+  @include pad("lg", "y");
+  @include font-size("xxl");
+  flex: 20% 1 0;
+  max-width: 500px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  & > .title {
+    @include font-size("xl");
   }
 
-  section.task-list {
+  & > .description {
+    @include font-size("lg");
+  }
+
+  & > .links {
+    display: flex;
+    justify-content: space-around;
+
+    & > * {
+      @include font-size("md");
+      @include marg("xs", "y");
+      flex-grow: 1;
+      text-align: center;
+      border: 1px solid black;
+      color: black;
+    }
+  }
+}
+
+@mixin page_title {
+  @include font-size("xxl");
+}
+
+.tasks-index {
+  & > .title {
+    @include page_title;
+  }
+  
+  .list {
+    @include pad("md");
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 
-    div.task {
-      @include pad('xs', 'y');
-      @include pad('lg', 'x');
-      flex: 20% 1 0;
-      max-width: 500px;
-      border: 1px solid black;
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-
-      .task-title {
-        @include font-size("xl");
-      }
-      
-      .task-description {
-        @include font-size("lg");
-      }
-
-      .links {
-        display: flex;
-        justify-content: space-around;
-
-        & > * {
-          @include font-size("md");
-          @include marg('xs', 'y');
-          flex-grow: 1;
-          text-align: center;
-          border: 1px solid black;
-          color: black;
-        }
-        *:hover {
-          background: rgba(100, 100, 100, 0.3);
-        }
-      }
+    &__card {
+      @include task-card;
     }
   }
-
   .new-task-form {
-    @include pad('md');
+    @include pad("md");
     display: inline-flex;
     flex-direction: column;
     border: 1px solid grey;
-    background:rgba(100, 100, 100, 0.1);
+    background: rgba(100, 100, 100, 0.1);
     & > *:not(:last-child) {
       margin-bottom: 5px;
     }
