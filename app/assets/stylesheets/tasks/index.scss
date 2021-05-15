@@ -14,7 +14,7 @@
 }
 
 @mixin task-card {
-  @include pad("xl", "x");
+  @include pad("md", "x");
   @include pad("lg", "y");
   @include font-size("lg");
   flex: 20% 1 0;
@@ -47,9 +47,24 @@
   }
 
 @mixin subtasking-form {
+  @include pad("sm", "top");
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(100, 100, 100, 0.1);
+  border-top: 1px solid rgba(100, 100, 100, 0.3);
+  &__title {
+    @include font-size('lg');
+    @include pad('xs', 'bottom');
+    text-decoration: underline;
+  }
+  &__fieldset {
+    display: flex;
+    > * {
+      flex: 50% 1 1;
+    }
+  }
+  &__field {
+    flex: 1;
+  }
 }
 
 // -------------------------------

@@ -1,14 +1,19 @@
 <%= form_with model: subtasking, html: html_options do |form| %>
-<h6>Add a subtask for <%= subtasking.supertask.title %></h6>
+<h6 class="card__form__title">Add a new sub-task</h6>
 <%= form.hidden_field :supertask_id %>
 
 <%= form.fields_for :subtask, subtasking.build_subtask do |t| %>
 
-<%= t.label :title, 'Title:' %>
-<%= t.text_field :title %>
+<% [
+  {property: :title, text: 'Title'},
+  {property: :description, text: 'Description'}
+  ].each do |hash| %>
 
-<%= t.label :description, 'Description:' %>
-<%= t.text_field :description %>
+<div class="card__form__fieldset">
+  <%= t.label hash[:property], hash[:text], class: 'card__form__label' %>
+  <%= t.text_field hash[:property], class: 'card__form__field' %>
+</div>
+<% end %>
 
 <% end %>
 
