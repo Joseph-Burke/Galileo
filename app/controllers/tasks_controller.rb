@@ -3,7 +3,11 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.all.select { |task| [task, task.title, task.description].all? }
+    @new_task = Task.new
+
+    # Build associations for forms.
+    @tasks.each(&:build_sub_and_super_subtaskings)
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -65,6 +69,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description)
+      params.require(:task).permit(:title, :description, subtask_subtaskings_attributes: [:subtask_id, :supertask_id])
     end
 end

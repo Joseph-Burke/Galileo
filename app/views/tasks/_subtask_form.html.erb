@@ -1,0 +1,16 @@
+<%= form_with model: subtasking, html: html_options do |form| %>
+<h6>Add a subtask for <%= subtasking.supertask.title %></h6>
+<%= form.hidden_field :supertask_id %>
+
+<%= form.fields_for :subtask, subtasking.build_subtask do |t| %>
+
+<%= t.label :title, 'Title:' %>
+<%= t.text_field :title %>
+
+<%= t.label :description, 'Description:' %>
+<%= t.text_field :description %>
+
+<% end %>
+
+<%= form.submit %>
+<% end %>

@@ -65,6 +65,6 @@ class SubtaskingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def subtasking_params
-      params.require(:subtasking).permit(:supertask_id, :subtask_id)
+      params.require(:subtasking).permit(:supertask_id, :subtask_id, subtask_attributes: [:title, :description])
     end
 end
