@@ -2,28 +2,37 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+// -------------------------------
+// IMPORTS
 @import "../utilities/font-sizes";
 @import "../utilities/spacing";
+
+// -------------------------------
+// MIXINS
+@mixin page_title {
+  @include font-size("xxl");
+}
 
 @mixin task-card {
   @include pad("xl", "x");
   @include pad("lg", "y");
-  @include font-size("xxl");
+  @include font-size("lg");
   flex: 20% 1 0;
   max-width: 500px;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  & > .title {
+  &__title {
     @include font-size("xl");
   }
 
   & > .description {
     @include font-size("lg");
   }
+}
 
-  & > .links {
+@mixin card-links {
     display: flex;
     justify-content: space-around;
 
@@ -36,28 +45,38 @@
       color: black;
     }
   }
+
+@mixin subtasking-form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(100, 100, 100, 0.1);
 }
 
-@mixin page_title {
-  @include font-size("xxl");
-}
+// -------------------------------
+// STYLES
 
 .tasks-index {
-  & > .title {
+  &__title {
     @include page_title;
   }
-  
-  .list {
+
+  &__list {
     @include pad("md");
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-
-    &__card {
+    .card {
       @include task-card;
+      &__form {
+        @include subtasking-form;
+      }
+      &__links {
+        @include card-links;
+      }
     }
   }
-  .new-task-form {
+
+  &__form {
     @include pad("md");
     display: inline-flex;
     flex-direction: column;
