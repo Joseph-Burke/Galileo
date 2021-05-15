@@ -1,24 +1,32 @@
 <div class="tasks-index">
-  <h1 class="title">All tasks</h1>
+  <h1 class="tasks-index__title">All tasks</h1>
 
-  <section class="list">
+  <section class="tasks-index__list">
     <% @tasks.each do |task| %>
-    <div class='list__card'>
-      <h5 class="title">
+    <div class='card'>
+
+      <h5 class="card__title">
         <%= task.title %>
       </h5>
-      <p class="description">
-        <%= task.description.gsub(' ', '') == '' ? 'No description' : task.description %>
+
+      <p class="card__description">
+        <%= task.description %>
       </p>
-      <div class="links">
+
+      <div class="card__links">
         <%= link_to "View Task", task %>
         <%= link_to 'Edit', edit_task_path(task) %>
         <%= link_to 'Destroy', task, method: :delete %>
       </div>
+
+      <%= render partial: 'subtask_form', locals: { 
+        subtasking: task.subtask_subtaskings.first,
+        html_options: {class: 'card__form'}}
+        %>
+
     </div>
     <% end %>
   </section>
   <br>
-  <%= render "form", task: Task.new %>
-
+  <%= render "form", task: @new_task %>
 </div>
